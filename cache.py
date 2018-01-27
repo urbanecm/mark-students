@@ -6,6 +6,8 @@ from lxml import html
 import shutil
 import os
 
+requests.utils.default_user_agent = lambda: "Dashboard Scrapper (no website exists, martin.urbanec@wikimedia.cz, https://meta.wikimedia.org/wiki/User:Martin_Urbanec)"
+
 base = "https://outreachdashboard.wmflabs.org/campaigns/"
 
 campaigns = [
