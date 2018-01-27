@@ -34,8 +34,8 @@ for campaign in campaigns:
 	f = open('public/data/' + campaign + '-users.txt', 'w')
 	for user in users:
 		f.write(user.encode('latin1') + '\n')
-		rules.append("a[href$='wiki/Wikipedista:" + user.encode('latin1') + "']")
-		rules.append("a[href$='Wikipedista:" + user.encode('latin1') + "&action=edit&redlink=1']")
+		rules.append("a[href$='wiki/Wikipedista:" + user.encode('latin1').replace(' ', '_') + "']")
+		rules.append("a[href$='Wikipedista:" + user.encode('latin1').replace(' ', '_') + "&action=edit&redlink=1']")
 	f.close()
 	fcss.write(",\n".join(rules))
 	fcss.write("{ color: green; font-weight: bold; }\n\n")
