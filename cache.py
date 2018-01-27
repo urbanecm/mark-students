@@ -39,6 +39,6 @@ for campaign in campaigns:
 		rules.append("a[href$='Wikipedista:" + user.encode('latin1') + "&action=edit&redlink=1']")
 	f.close()
 	fcss.write(",\n".join(rules))
-	fcss.write("{ color: red; font-weight: bold; }\n\n")
+	fcss.write("{ color: green; font-weight: bold; }\n\n")
 	rules = []
 	break
