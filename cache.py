@@ -41,4 +41,3 @@ for campaign in campaigns:
 	fcss.write(",\n".join(rules))
 	fcss.write("{ color: green; font-weight: bold; }\n\n")
 	rules = []
-	break
