@@ -22,6 +22,7 @@ if os.path.isdir('public/data'):
 else:
 	os.mkdir('public/data')
 
+# Regenerate files campaign-users.txt in public iface
 for campaign in campaigns:
 	url = base + campaign + '/users'
 	r = requests.get(url)
