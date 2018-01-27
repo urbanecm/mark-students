@@ -14,7 +14,6 @@ campaigns = [
 	'studenti',
 	'seniori',
 	'knihovny',
-	'workshopy',
 ]
 
 # Clean data
