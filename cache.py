@@ -25,6 +25,8 @@ else:
 	os.mkdir('public/data')
 
 # Regenerate files campaign-users.txt in public iface
+fcss = open('public/data/stylesheet.css', 'w')
+rules = []
 for campaign in campaigns:
 	url = base + campaign + '/users'
 	r = requests.get(url)
@@ -33,4 +35,10 @@ for campaign in campaigns:
 	f = open('public/data/' + campaign + '-users.txt', 'w')
 	for user in users:
 		f.write(user.encode('latin1') + '\n')
+		rules.append("a[href$='wiki/Wikipedista:" + user.encode('latin1') + "']")
+		rules.append("a[href$='Wikipedista:" + user.encode('latin1') + "&action=edit&redlink=1']")
 	f.close()
+	fcss.write(",\n".join(rules))
+	fcss.write("{ color: red; font-weight: bold; }\n\n")
+	rules = []
+	break
