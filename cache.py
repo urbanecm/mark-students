@@ -17,21 +17,21 @@ campaigns = [
 ]
 
 # Clean data
-if os.path.isdir('public/data'):
-	shutil.rmtree('public/data')
-	os.mkdir('public/data')
+if os.path.isdir('/data/project/urbanecmbot/mark-students/public/data'):
+	shutil.rmtree('/data/project/urbanecmbot/mark-students/public/data')
+	os.mkdir('/data/project/urbanecmbot/mark-students/public/data')
 else:
-	os.mkdir('public/data')
+	os.mkdir('/data/project/urbanecmbot/mark-students/public/data')
 
 # Regenerate files campaign-users.txt in public iface
-fcss = open('public/data/stylesheet.css', 'w')
+fcss = open('/data/project/urbanecmbot/mark-students/public/data/stylesheet.css', 'w')
 rules = []
 for campaign in campaigns:
 	url = base + campaign + '/users'
 	r = requests.get(url)
 	tree = html.fromstring(r.content)
 	users = tree.xpath('//*[@id="users"]/table/tbody/tr/td/a/text()')
-	f = open('public/data/' + campaign + '-users.txt', 'w')
+	f = open('/data/project/urbanecmbot/mark-students/public/data/' + campaign + '-users.txt', 'w')
 	for user in users:
 		f.write(user.encode('latin1') + '\n')
 		rules.append("a[href$='wiki/Wikipedista:" + user.encode('latin1').replace(' ', '_') + "']")
