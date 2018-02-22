@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import requests
+import urllib
 from lxml import html
 import shutil
 import os
@@ -35,8 +36,8 @@ for campaign in campaigns:
 	f = open('/data/project/urbanecmbot/mark-students/public/data/' + campaign + '-users.txt', 'w')
 	for user in users:
 		f.write(user.encode('latin1') + '\n')
-		rules.append("a[href$='wiki/Wikipedista:" + user.encode('latin1').replace(' ', '_') + "']")
-		rules.append("a[href$='Wikipedista:" + user.encode('latin1').replace(' ', '_') + "&action=edit&redlink=1']")
+		rules.append("a[href$='wiki/Wikipedista:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "']")
+		rules.append("a[href$='Wikipedista:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "&action=edit&redlink=1']")
 	f.close()
 	fcss.write(",\n".join(rules))
 	fcss.write("\n{ color: green !important; font-weight: bold !important; }\n\n")
