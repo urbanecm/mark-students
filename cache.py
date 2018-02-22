@@ -38,6 +38,8 @@ for campaign in campaigns:
 		f.write(user.encode('latin1') + '\n')
 		rules.append("a[href$='wiki/Wikipedista:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "']")
 		rules.append("a[href$='Wikipedista:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "&action=edit&redlink=1']")
+		rules.append("a[href$='wiki/Wikipedistka:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "']")
+		rules.append("a[href$='Wikipedistka:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "&action=edit&redlink=1']")
 	f.close()
 	fcss.write(",\n".join(rules))
 	fcss.write("\n{ color: green !important; font-weight: bold !important; }\n\n")
