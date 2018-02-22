@@ -41,6 +41,6 @@ for campaign in campaigns:
 		rules.append("a[href$='wiki/Wikipedistka:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "']")
 		rules.append("a[href$='Wikipedistka:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "&action=edit&redlink=1']")
 	f.close()
-	fcss.write(",\n".join(rules))
-	fcss.write("\n{ color: green !important; font-weight: bold !important; }\n\n")
-	rules = []
+
+fcss.write(",\n".join(rules))
+fcss.write("\n{ color: green !important; font-weight: bold !important; }\n\n")
