@@ -25,6 +25,7 @@ else:
 
 # Regenerate files campaign-users.txt in public iface
 fcss = open('/data/project/urbanecmbot/mark-students/public/data/stylesheet.css', 'w')
+fcss.write('@charset "utf-8";\n\n')
 rules = []
 for campaign in campaigns:
 	url = base + campaign + '/users'
