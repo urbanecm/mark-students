@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+from wmflabs import db
 import requests
 import urllib
 from lxml import html
@@ -28,6 +29,14 @@ else:
 fcss = open('/data/project/urbanecmbot/mark-students/public/data/stylesheet.css', 'w')
 fcss.write('@charset "utf-8";\n\n')
 rules = []
+conn = db.connect('cswiki')
+autopatrolled = []
+with conn.cursor() as cur:
+	sql = "select user_name from user where user_id in (select ug_user from user_groups where ug_group='autopatrolled');"
+	cur.execute(sql)
+	data = cur.fetchall()
+	for row in data:
+		autopatrolled.append(row[0].decode('utf-8'))
 for campaign in campaigns:
 	url = base + campaign + '/users'
 	r = requests.get(url)
@@ -35,11 +44,14 @@ for campaign in campaigns:
 	users = tree.xpath('//*[@id="users"]/table/tbody/tr/td/a/text()')
 	f = open('/data/project/urbanecmbot/mark-students/public/data/' + campaign + '-users.txt', 'w')
 	for user in users:
-		f.write(user.encode('latin1') + '\n')
-		rules.append("a[href$='wiki/Wikipedista:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "']")
-		rules.append("a[href$='Wikipedista:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "&action=edit&redlink=1']")
-		rules.append("a[href$='wiki/Wikipedistka:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "']")
-		rules.append("a[href$='Wikipedistka:" + urllib.quote_plus(user.encode('latin1').replace(' ', '_')) + "&action=edit&redlink=1']")
+		user = str(user)
+		user = user.encode('latin1').decode('utf-8')
+		if user in autopatrolled: continue
+		f.write(user + '\n')
+		rules.append("a[href$='wiki/Wikipedista:" + urllib.parse.quote(user.replace(' ', '_')) + "']")
+		rules.append("a[href$='Wikipedista:" + urllib.parse.quote(user.replace(' ', '_')) + "&action=edit&redlink=1']")
+		rules.append("a[href$='wiki/Wikipedistka:" + urllib.parse.quote(user.replace(' ', '_')) + "']")
+		rules.append("a[href$='Wikipedistka:" + urllib.parse.quote(user.replace(' ', '_')) + "&action=edit&redlink=1']")
 	f.close()
 
 fcss.write(",\n".join(rules))
